@@ -3,121 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪶</text></svg>">
+    <title>Ashkan</title>
+    <script>
+        // Tailwind CSS configuration with updated background colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        // Consistent sans-serif font
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Artistic color scheme
+                        'primary': '#4f46e5',       // Indigo-600 (Vibrant Blue/Purple)
+                        'primary-dark': '#012326',    // Indigo-800 (Deeper)
+                        'accent': '#14b8a6',       // Teal-500 (Bright Accent)
+                        'accent-dark': '#0d9488',    // Teal-700 (Deeper Accent)
+                        'secondary': '#e0e7ff',     // Indigo-100 (Light background/hover)
+                        'neutral-bg': '#589EA6',     // Slate-200 with subtle orange tint
+                        'dark-bg': '#8C2016',       // Slate-800 (Darker elements/footer)
+                        'dark-text': '#000000',     // Black (Main text)
+                        'light-text': '#F27B35',     // Slate-500 (Subtle text)
+                        'footer-text': '#D98E04',   // Slate-300 (Text for dark footer)
+                        'white': '#ffffff',         // White (For section backgrounds)
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+        /* Smooth scrolling for navigation links */
+        html {
+            scroll-behavior: smooth;
         }
-
-        header {
-            background: #333;
-            color: #fff;
-            padding: 1rem 0;
-            text-align: center;
+        /* Subtle fade-in animation for sections */
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
         }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
+        .section-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-
-        nav {
-            margin-top: 0.5rem;
+        /* Style for publication list items using new colors */
+        .publication-item {
+            transition: background-color 0.2s ease-in-out;
         }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 1rem;
-            font-size: 1.1rem;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            background: #fff;
-            padding: 2rem;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-        }
-
-        section {
-            margin-bottom: 2rem;
-        }
-
-        section h2 {
-            margin-bottom: 1rem;
-            color: #444;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1rem 0;
-            background: #333;
-            color: #fff;
-            margin-top: 2rem;
-        }
-
-        footer p {
-            margin: 0;
-        }
-
-        footer a {
-            color: #fff;
-            text-decoration: none;
+        .publication-item:hover {
+            background-color: theme('colors.secondary'); /* Use light Indigo hover */
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
-    <header>
-        <h1>Your Name</h1>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#work">Work</a>
-            <a href="#publications">Publications</a>
-            <a href="#contact">Contact</a>
+<!-- Updated body background color to neutral-bg (slate-100) -->
+<body class="bg-neutral-bg font-sans text-dark-text">
+
+    <!-- Header remains white -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-end items-center">
+            <div class="hidden md:flex space-x-6">
+                <a href="#about" class="text-light-text hover:text-primary font-medium">About</a>
+                <a href="#publications" class="text-light-text hover:text-primary font-medium">Publications</a>
+                <!-- <a href="[Link_To_Your_CV.pdf]" target="_blank" class="text-primary hover:text-primary-dark font-medium inline-flex items-center">
+                    CV <i class="fas fa-download ml-1 text-xs"></i>
+                </a> -->
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-dark-text p-2 rounded-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </nav>
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
+            <a href="#about" class="block px-4 py-2 text-light-text hover:bg-secondary hover:text-primary">About</a>
+            <a href="#publications" class="block px-4 py-2 text-light-text hover:bg-secondary hover:text-primary">Publications</a>
+            <a href="[Link_To_Your_CV.pdf]" target="_blank" class="block px-4 py-2 text-primary hover:bg-secondary">CV <i class="fas fa-download ml-1 text-xs"></i></a>
+        </div>
     </header>
 
-    <div class="container">
-        <section id="about">
-            <h2>About Me</h2>
-            <p>Write a brief introduction about yourself here. Mention your background, interests, and what you are passionate about.</p>
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- Sections now use white background for contrast -->
+        <section id="about" class="py-16 my-12 bg-white rounded-lg shadow-lg section-fade-in visible">
+            <div class="container mx-auto px-6 lg:px-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 text-primary-dark">Hi there, I'm Ashkan</h2>
+                <div class="md:flex items-start">
+                    <div class="md:w-2/3 md:pr-12 mb-6 md:mb-0">
+                        <p class="text-lg leading-relaxed mb-4">
+                            I'm a second-year PhD student at the <a href="https://www.unitn.it/en" class="text-primary hover:underline">University of Trento</a> and <a href="https://www.fbk.eu/en/" class="text-primary hover:underline">Fondazione Bruno Kessler (FBK)</a>, working under the supervision of <a href="https://3dom.fbk.eu/people/profile/remondino" class="text-primary hover:underline">Fabio Remondino</a> in the <a href="https://3dom.fbk.eu/" class="text-primary hover:underline">3DOM research unit</a> at FBK. My research focuses on open-vocabulary point cloud segmentation, particularly using photogrammetric data.
+                        </p>
+                        <p class="text-lg leading-relaxed mb-4">
+                            I'm fascinated by bringing the power of 2D vision-language models into the 3D world, making 3D understanding more flexible and scalable through training-free segmentation, zero-shot learning, and models that just get it without being spoon-fed. I love the idea of machines that can instantly make sense of a 3D scene!
+                        </p>
+                        <p class="text-lg leading-relaxed mb-4">
+                            Previously, I obtained my MS in Computer Science from the <a href="https://www.unitn.it/en" class="text-primary hover:underline">University of Trento</a>. Outside of research, I enjoy climbing, hiking, and mountains.
+                        </p>
+                         <!-- Internship Note
+                         <p class="text-lg leading-relaxed font-semibold text-accent-dark mb-4">
+                            I am actively seeking internship opportunities for [Specify timeframe, e.g., Summer 2026] in roles related to 3D Vision, Machine Learning, or AI Research.
+                         </p>
+                         Simplified Contact Prompt
+                         <p class="text-lg leading-relaxed">
+                             Feel free to <a href="mailto:[your.email@example.com]" class="text-primary hover:underline font-medium">get in touch via email</a> if you'd like to discuss research, collaborations, or opportunities.
+                         </p> -->
+                    </div>
+                    <div class="md:w-1/3 text-center">
+                        <img src="src/mm.png" alt="Ashkan Alami" class="w-64 h-80 md:w-80 md:h-96 rounded-lg mx-auto mb-6 border-4 border-secondary object-cover" onerror="this.onerror=null; this.src='https://placehold.co/320x400/c7d2fe/3730a3?text=👤';">
+                        <div class="mt-4 flex justify-center space-x-6 text-2xl">
+                            <a href="https://github.com/AshkanAlami" target="_blank" class="text-light-text hover:text-accent" title="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/ashkan-alami-25a813a9/" target="_blank" class="text-light-text hover:text-primary" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://scholar.google.com/citations?user=kfJsdJYAAAAJ&hl=en&oi=ao" target="_blank" class="text-light-text hover:text-accent" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                            <a href="mailto:aalami@fbk.eu" class="text-light-text hover:text-primary" title="Email"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section id="work">
-            <h2>Current Job</h2>
-            <p>Describe your current job role, the company you work for, and your responsibilities.</p>
+        <!-- Sections now use white background -->
+        <section id="publications" class="py-16 my-12 bg-white rounded-lg shadow-lg section-fade-in">
+            <div class="container mx-auto px-6 lg:px-12">
+                <h2 class="text-3xl font-bold text-center mb-10 text-primary-dark">Publications</h2>
+                <!-- <p class="text-center text-light-text mb-8">
+                    (* denotes equal contribution) <br> You can also find my publications on <a href="[Your_Google_Scholar_Link]" target="_blank" class="text-primary hover:underline font-medium">Google Scholar</a>.
+                </p> -->
+                <ul class="space-y-6">
+                    <li class="publication-item p-4 rounded-md border border-gray-200">
+                        <p class="font-semibold text-lg text-dark-text">Querying 3D point clouds exploiting open-vocabulary semantic segmentation of images</p>
+                        <p class="text-light-text"><strong>Alami, A.</strong>, & Remondino, F.</p>
+                        <p class="text-sm text-gray-500"><em>The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences</em>, 2024</p>
+                        <div class="mt-2">
+                            <a href="https://isprs-archives.copernicus.org/articles/XLVIII-2-W8-2024/1/2024/" target="_blank" class="text-sm text-accent hover:text-accent-dark font-medium">View on ISPRS Archives</a>
+                        </div>
+                    </li>
+                    <!-- <li class="publication-item p-4 rounded-md border border-gray-200">
+                        <p class="font-semibold text-lg text-dark-text">"Another Interesting Paper on Point Cloud Processing"</p>
+                        <p class="text-light-text">Author 1, <strong>[Your Name]</strong>, Author 3</p>
+                        <p class="text-sm text-gray-500"><em>Workshop @ Conference Name or Journal</em>, Year</p>
+                         <div class="mt-2 space-x-3">
+                            <a href="#" target="_blank" class="text-sm text-accent hover:text-accent-dark font-medium">[PDF]</a>
+                            <a href="#" target="_blank" class="text-sm text-accent hover:text-accent-dark font-medium">[Code/Data]</a>
+                        </div>
+                    </li> -->
+                    </ul>
+            </div>
         </section>
 
-        <section id="publications">
-            <h2>Publications</h2>
-            <ul>
-                <li><strong>Title of Publication 1</strong> - Journal/Conference, Year</li>
-                <li><strong>Title of Publication 2</strong> - Journal/Conference, Year</li>
-                <li><strong>Title of Publication 3</strong> - Journal/Conference, Year</li>
-                <!-- Add more as needed -->
-            </ul>
-        </section>
+    </main>
 
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>Feel free to reach out to me at: <a href="mailto:your-email@example.com">your-email@example.com</a></p>
-        </section>
-    </div>
-
-    <footer>
-        <p>&copy; 2025 Your Name. Built with love for GitHub Pages. <a href="https://github.com/yourusername">My GitHub</a></p>
+    <!-- Footer remains dark -->
+    <footer class="bg-dark-bg text-footer-text py-8 mt-12">
+        <div class="container mx-auto px-6 text-center text-sm">
+            <p>&copy; 2025 Ashkan Alami. Built with Tailwind CSS.</p>
+            <p class="mt-1">Last updated: [Date]</p>
+        </div>
     </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = menuButton.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+
+        // Close mobile menu when a navigation link is clicked
+        mobileMenu.addEventListener('click', (event) => {
+            if (event.target.tagName === 'A' && event.target.getAttribute('href').startsWith('#')) {
+                mobileMenu.classList.add('hidden');
+                 const icon = menuButton.querySelector('i');
+                 icon.classList.remove('fa-times');
+                 icon.classList.add('fa-bars');
+            }
+        });
+
+
+        // Section Fade-in Observer
+        const sections = document.querySelectorAll('.section-fade-in');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // observer.unobserve(entry.target); // Optional: Stop observing once visible
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+            // Initialize sections visible on load
+            if (!section.classList.contains('visible') && section.getBoundingClientRect().top < window.innerHeight) {
+                 section.classList.add('visible');
+            }
+        });
+    </script>
+
 </body>
 </html>
 
