@@ -1,221 +1,278 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Ashkan Alami</title>
+    <meta name="description" content="Ashkan Alami — PhD student at University of Trento & FBK working on open-vocabulary 3D point cloud segmentation.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪶</text></svg>">
-    <title>Ashkan</title>
+
+    <!-- Prevent dark-mode flash: apply theme before paint -->
     <script>
-        // Tailwind CSS configuration with updated background colors
+        (function () {
+            const stored = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (stored === 'dark' || (!stored && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
-                        // Consistent sans-serif font
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
                     },
                     colors: {
-                        // Artistic color scheme
-                        'primary': '#4f46e5',       // Indigo-600 (Vibrant Blue/Purple)
-                        'primary-dark': '#012326',    // Indigo-800 (Deeper)
-                        'accent': '#14b8a6',       // Teal-500 (Bright Accent)
-                        'accent-dark': '#0d9488',    // Teal-700 (Deeper Accent)
-                        'secondary': '#e0e7ff',     // Indigo-100 (Light background/hover)
-                        'neutral-bg': '#589EA6',     // Slate-200 with subtle orange tint
-                        'dark-bg': '#8C2016',       // Slate-800 (Darker elements/footer)
-                        'dark-text': '#000000',     // Black (Main text)
-                        'light-text': '#F27B35',     // Slate-500 (Subtle text)
-                        'footer-text': '#D98E04',   // Slate-300 (Text for dark footer)
-                        'white': '#ffffff',         // White (For section backgrounds)
-                    }
-                }
-            }
-        }
+                        brand: {
+                            50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe',
+                            300: '#a5b4fc', 400: '#818cf8', 500: '#6366f1',
+                            600: '#4f46e5', 700: '#4338ca', 800: '#3730a3', 900: '#312e81',
+                        },
+                        accent: {
+                            400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488',
+                        },
+                    },
+                    keyframes: {
+                        'fade-up': {
+                            '0%': { opacity: '0', transform: 'translateY(16px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                    },
+                    animation: {
+                        'fade-up': 'fade-up 0.6s ease-out both',
+                    },
+                },
+            },
+        };
     </script>
-    <style>
-        /* Smooth scrolling for navigation links */
-        html {
-            scroll-behavior: smooth;
-        }
-        /* Subtle fade-in animation for sections */
-        .section-fade-in {
-            opacity: 0;
-            transform: translateY(15px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-        }
-        .section-fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* Style for publication list items using new colors */
-        .publication-item {
-            transition: background-color 0.2s ease-in-out;
-        }
-        .publication-item:hover {
-            background-color: theme('colors.secondary'); /* Use light Indigo hover */
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<!-- Updated body background color to neutral-bg (slate-100) -->
-<body class="bg-neutral-bg font-sans text-dark-text">
 
-    <!-- Header remains white -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-end items-center">
-            <div class="hidden md:flex space-x-6">
-                <a href="#about" class="text-light-text hover:text-primary font-medium">About</a>
-                <a href="#publications" class="text-light-text hover:text-primary font-medium">Publications</a>
-                <!-- <a href="[Link_To_Your_CV.pdf]" target="_blank" class="text-primary hover:text-primary-dark font-medium inline-flex items-center">
-                    CV <i class="fas fa-download ml-1 text-xs"></i>
-                </a> -->
-            </div>
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-dark-text p-2 rounded-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary">
-                    <i class="fas fa-bars"></i>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Subtle reveal-on-scroll */
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease-out, transform .7s ease-out; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        /* Animated gradient blob backdrop */
+        .blob { filter: blur(80px); opacity: .35; }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200 font-sans antialiased transition-colors duration-300">
+
+    <!-- Decorative background -->
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div class="blob absolute -top-32 -left-24 h-96 w-96 rounded-full bg-brand-400 dark:bg-brand-700"></div>
+        <div class="blob absolute top-1/3 -right-24 h-96 w-96 rounded-full bg-accent-400 dark:bg-accent-600"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/70 dark:bg-slate-950/70 border-b border-slate-200/60 dark:border-slate-800/60">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+            <a href="#" class="font-bold text-lg tracking-tight text-slate-900 dark:text-white">Ashkan&nbsp;Alami</a>
+            <div class="flex items-center gap-1 sm:gap-2">
+                <a href="#about" class="hidden sm:inline-block px-3 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-400 rounded-md">About</a>
+                <a href="#publications" class="hidden sm:inline-block px-3 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-400 rounded-md">Publications</a>
+                <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode"
+                    class="ml-1 h-9 w-9 inline-flex items-center justify-center rounded-md text-base text-slate-600 hover:bg-slate-200/70 dark:text-slate-300 dark:hover:bg-slate-800 transition">
+                    <span class="dark:hidden">🌙</span>
+                    <span class="hidden dark:inline">☀️</span>
                 </button>
             </div>
         </nav>
-        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
-            <a href="#about" class="block px-4 py-2 text-light-text hover:bg-secondary hover:text-primary">About</a>
-            <a href="#publications" class="block px-4 py-2 text-light-text hover:bg-secondary hover:text-primary">Publications</a>
-            <a href="[Link_To_Your_CV.pdf]" target="_blank" class="block px-4 py-2 text-primary hover:bg-secondary">CV <i class="fas fa-download ml-1 text-xs"></i></a>
-        </div>
     </header>
 
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8">
 
-        <!-- Sections now use white background for contrast -->
-        <section id="about" class="py-16 my-12 bg-white rounded-lg shadow-lg section-fade-in visible">
-            <div class="container mx-auto px-6 lg:px-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 text-primary-dark">Hi there, I'm Ashkan</h2>
-                <div class="md:flex items-start">
-                    <div class="md:w-2/3 md:pr-12 mb-6 md:mb-0">
-                        <p class="text-lg leading-relaxed mb-4">
-                            I'm a second-year PhD student at the <a href="https://www.unitn.it/en" class="text-primary hover:underline">University of Trento</a> and <a href="https://www.fbk.eu/en/" class="text-primary hover:underline">Fondazione Bruno Kessler (FBK)</a>, working under the supervision of <a href="https://3dom.fbk.eu/people/profile/remondino" class="text-primary hover:underline">Fabio Remondino</a> in the <a href="https://3dom.fbk.eu/" class="text-primary hover:underline">3DOM research unit</a> at FBK. My research focuses on open-vocabulary point cloud segmentation, particularly using photogrammetric data.
+        <!-- Hero / About -->
+        <section id="about" class="py-16 sm:py-24">
+            <div class="grid md:grid-cols-3 gap-10 lg:gap-16 items-center">
+                <div class="md:col-span-2 animate-fade-up">
+                    <p class="text-accent-600 dark:text-accent-400 font-semibold mb-3">PhD Student · 3D Vision &amp; Language</p>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6">
+                        Hi, I'm Ashkan&nbsp;👋
+                    </h1>
+                    <div class="space-y-4 text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+                        <p>
+                            I'm a PhD student at the <a href="https://www.unitn.it/en" class="text-brand-600 dark:text-brand-400 font-medium hover:underline">University of Trento</a> and <a href="https://www.fbk.eu/en/" class="text-brand-600 dark:text-brand-400 font-medium hover:underline">Fondazione Bruno Kessler (FBK)</a>, advised by <a href="https://3dom.fbk.eu/people/profile/remondino" class="text-brand-600 dark:text-brand-400 font-medium hover:underline">Fabio Remondino</a> in the <a href="https://3dom.fbk.eu/" class="text-brand-600 dark:text-brand-400 font-medium hover:underline">3DOM</a> research unit. My work focuses on <strong class="font-semibold text-slate-800 dark:text-slate-100">open-vocabulary point cloud segmentation</strong>, especially on photogrammetric data.
                         </p>
-                        <p class="text-lg leading-relaxed mb-4">
-                            I'm fascinated by bringing the power of 2D vision-language models into the 3D world, making 3D understanding more flexible and scalable through training-free segmentation, zero-shot learning, and models that just get it without being spoon-fed. I love the idea of machines that can instantly make sense of a 3D scene!
+                        <p>
+                            I'm fascinated by bringing 2D vision-language models into the 3D world — making 3D understanding flexible and scalable through training-free segmentation, zero-shot learning, and models that just <em>get it</em>. I love the idea of machines that instantly make sense of a 3D scene.
                         </p>
-                        <p class="text-lg leading-relaxed mb-4">
-                            Previously, I obtained my MS in Computer Science from the <a href="https://www.unitn.it/en" class="text-primary hover:underline">University of Trento</a>. Outside of research, I enjoy climbing, hiking, and mountains.
+                        <p>
+                            I earned my MS in Computer Science at the University of Trento. Outside research, you'll find me climbing, hiking, and in the mountains. 🏔️
                         </p>
-                         <!-- Internship Note
-                         <p class="text-lg leading-relaxed font-semibold text-accent-dark mb-4">
-                            I am actively seeking internship opportunities for [Specify timeframe, e.g., Summer 2026] in roles related to 3D Vision, Machine Learning, or AI Research.
-                         </p>
-                         Simplified Contact Prompt
-                         <p class="text-lg leading-relaxed">
-                             Feel free to <a href="mailto:[your.email@example.com]" class="text-primary hover:underline font-medium">get in touch via email</a> if you'd like to discuss research, collaborations, or opportunities.
-                         </p> -->
                     </div>
-                    <div class="md:w-1/3 text-center">
-                        <img src="src/mm.png" alt="Ashkan Alami" class="w-64 h-80 md:w-80 md:h-96 rounded-lg mx-auto mb-6 border-4 border-secondary object-cover" onerror="this.onerror=null; this.src='https://placehold.co/320x400/c7d2fe/3730a3?text=👤';">
-                        <div class="mt-4 flex justify-center space-x-6 text-2xl">
-                            <a href="https://github.com/AshkanAlami" target="_blank" class="text-light-text hover:text-accent" title="GitHub"><i class="fab fa-github"></i></a>
-                            <a href="https://www.linkedin.com/in/ashkan-alami-25a813a9/" target="_blank" class="text-light-text hover:text-primary" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="https://scholar.google.com/citations?user=kfJsdJYAAAAJ&hl=en&oi=ao" target="_blank" class="text-light-text hover:text-accent" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
-                            <a href="mailto:aalami@fbk.eu" class="text-light-text hover:text-primary" title="Email"><i class="fas fa-envelope"></i></a>
-                        </div>
+                    <div class="mt-8 flex flex-wrap items-center gap-3">
+                        <a href="https://scholar.google.com/citations?user=kfJsdJYAAAAJ&hl=en" target="_blank" rel="noopener"
+                           class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-medium shadow-sm transition">
+                            <i class="fas fa-graduation-cap"></i> Google Scholar
+                        </a>
+                        <a href="https://github.com/AshkanAlami" target="_blank" rel="noopener"
+                           class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-200/70 hover:bg-slate-300/70 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium transition">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/ashkan-alami-25a813a9/" target="_blank" rel="noopener"
+                           class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-200/70 hover:bg-slate-300/70 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium transition">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="mailto:aalami@fbk.eu"
+                           class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-200/70 hover:bg-slate-300/70 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium transition">
+                            <i class="fas fa-envelope"></i> Email
+                        </a>
+                    </div>
+                </div>
+                <div class="md:col-span-1 flex justify-center animate-fade-up">
+                    <div class="relative">
+                        <div class="absolute -inset-3 rounded-2xl bg-gradient-to-tr from-brand-500 to-accent-500 opacity-30 blur-lg"></div>
+                        <img src="src/mm.png" alt="Ashkan Alami"
+                             class="relative w-56 h-72 sm:w-64 sm:h-80 rounded-2xl object-cover shadow-xl ring-1 ring-black/5"
+                             onerror="this.onerror=null; this.src='https://placehold.co/320x400/c7d2fe/3730a3?text=👤';">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Sections now use white background -->
-        <section id="publications" class="py-16 my-12 bg-white rounded-lg shadow-lg section-fade-in">
-            <div class="container mx-auto px-6 lg:px-12">
-                <h2 class="text-3xl font-bold text-center mb-10 text-primary-dark">Publications</h2>
-                <!-- <p class="text-center text-light-text mb-8">
-                    (* denotes equal contribution) <br> You can also find my publications on <a href="[Your_Google_Scholar_Link]" target="_blank" class="text-primary hover:underline font-medium">Google Scholar</a>.
-                </p> -->
-                <ul class="space-y-6">
-                    <li class="publication-item p-4 rounded-md border border-gray-200">
-                        <p class="font-semibold text-lg text-dark-text">Querying 3D point clouds exploiting open-vocabulary semantic segmentation of images</p>
-                        <p class="text-light-text"><strong>Alami, A.</strong>, & Remondino, F.</p>
-                        <p class="text-sm text-gray-500"><em>The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences</em>, 2024</p>
-                        <div class="mt-2">
-                            <a href="https://isprs-archives.copernicus.org/articles/XLVIII-2-W8-2024/1/2024/" target="_blank" class="text-sm text-accent hover:text-accent-dark font-medium">View on ISPRS Archives</a>
-                        </div>
-                    </li>
-                    <!-- <li class="publication-item p-4 rounded-md border border-gray-200">
-                        <p class="font-semibold text-lg text-dark-text">"Another Interesting Paper on Point Cloud Processing"</p>
-                        <p class="text-light-text">Author 1, <strong>[Your Name]</strong>, Author 3</p>
-                        <p class="text-sm text-gray-500"><em>Workshop @ Conference Name or Journal</em>, Year</p>
-                         <div class="mt-2 space-x-3">
-                            <a href="#" target="_blank" class="text-sm text-accent hover:text-accent-dark font-medium">[PDF]</a>
-                            <a href="#" target="_blank" class="text-sm text-accent hover:text-accent-dark font-medium">[Code/Data]</a>
-                        </div>
-                    </li> -->
-                    </ul>
+        <!-- Publications -->
+        <section id="publications" class="py-12 sm:py-16 reveal">
+            <div class="flex items-end justify-between mb-8 gap-4 flex-wrap">
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Publications</h2>
+                    <p id="pub-meta" class="text-sm text-slate-500 dark:text-slate-400 mt-1"></p>
+                </div>
+                <a href="https://scholar.google.com/citations?user=kfJsdJYAAAAJ&hl=en" target="_blank" rel="noopener"
+                   class="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline">
+                    View all on Scholar <i class="fas fa-arrow-up-right-from-square text-xs ml-0.5"></i>
+                </a>
             </div>
+            <ol id="pub-list" class="space-y-5">
+                <!-- Rendered from the PUBLICATIONS array in the script below -->
+                <li class="text-slate-500 dark:text-slate-400">Loading publications…</li>
+            </ol>
         </section>
-
     </main>
 
-    <!-- Footer remains dark -->
-    <footer class="bg-dark-bg text-footer-text py-8 mt-12">
-        <div class="container mx-auto px-6 text-center text-sm">
-            <p>&copy; 2025 Ashkan Alami. Built with Tailwind CSS.</p>
-            <!-- <p class="mt-1">Last updated: May 4, 2025</p> -->
+    <footer class="border-t border-slate-200/60 dark:border-slate-800/60 mt-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm text-slate-500 dark:text-slate-400">
+            <p>&copy; <span id="year"></span> Ashkan Alami · Built with Tailwind CSS</p>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const menuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        menuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            const icon = menuButton.querySelector('i');
-            if (mobileMenu.classList.contains('hidden')) {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            } else {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            }
+        // --- Theme toggle ---
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
 
-        // Close mobile menu when a navigation link is clicked
-        mobileMenu.addEventListener('click', (event) => {
-            if (event.target.tagName === 'A' && event.target.getAttribute('href').startsWith('#')) {
-                mobileMenu.classList.add('hidden');
-                 const icon = menuButton.querySelector('i');
-                 icon.classList.remove('fa-times');
-                 icon.classList.add('fa-bars');
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // --- Reveal on scroll ---
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        // --- Render publications ---
+        const MY_NAME = /Alami/g; // bold the author's own name
+
+        function escapeHtml(s) {
+            const d = document.createElement('div');
+            d.textContent = s ?? '';
+            return d.innerHTML;
+        }
+
+        function renderPublications(data) {
+            const list = document.getElementById('pub-list');
+            const meta = document.getElementById('pub-meta');
+            const pubs = (data.publications || []).slice().sort((a, b) => (b.year || 0) - (a.year || 0));
+
+            // if (data.updated) {
+            //     meta.textContent = `${pubs.length} publication${pubs.length === 1 ? '' : 's'} · updated ${data.updated}`;
+            // }
+
+            if (!pubs.length) {
+                list.innerHTML = '<li class="text-slate-500 dark:text-slate-400">No publications found.</li>';
+                return;
             }
-        });
 
+            list.innerHTML = pubs.map(p => {
+                const authors = escapeHtml(p.authors).replace(MY_NAME,
+                    '<strong class="font-semibold text-slate-900 dark:text-white">Alami</strong>');
+                const links = (p.links && p.links.length ? p.links : (p.url ? [{ label: 'Link', url: p.url }] : []))
+                    .map(l => `<a href="${escapeHtml(l.url)}" target="_blank" rel="noopener"
+                        class="inline-flex items-center gap-1 text-sm font-medium text-accent-600 dark:text-accent-400 hover:underline">
+                        ${escapeHtml(l.label)} <i class="fas fa-arrow-up-right-from-square text-[10px]"></i></a>`)
+                    .join('<span class="text-slate-300 dark:text-slate-600 mx-1">·</span>');
+                const cites = (p.citations && p.citations > 0)
+                    ? `<span class="shrink-0 inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300">
+                         <i class="fas fa-quote-right text-[10px]"></i> ${p.citations}</span>`
+                    : '';
 
-        // Section Fade-in Observer
-        const sections = document.querySelectorAll('.section-fade-in');
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
+                return `
+                <li class="group rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm p-5 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-lg transition">
+                    <div class="flex items-start justify-between gap-4">
+                        <h3 class="font-semibold text-lg text-slate-900 dark:text-white leading-snug">${escapeHtml(p.title)}</h3>
+                        ${cites}
+                    </div>
+                    <p class="mt-1.5 text-slate-600 dark:text-slate-300">${authors}</p>
+                    <p class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
+                        <em>${escapeHtml(p.venue)}</em>${p.year ? ` · ${p.year}` : ''}
+                    </p>
+                    ${links ? `<div class="mt-3 flex flex-wrap items-center">${links}</div>` : ''}
+                </li>`;
+            }).join('');
+        }
+
+        // ─── Publications ───────────────────────────────────────────────
+        // To add a paper: copy a block below and edit the fields.
+        // The list auto-sorts by year (newest first) and bolds "Alami".
+        const PUBLICATIONS = {
+            updated: "2026-06-03",
+            publications: [
+                {
+                    title: "Open-Vocabulary Segmentation of Aerial Point Clouds",
+                    authors: "Ashkan Alami, Fabio Remondino",
+                    venue: "Remote Sensing",
+                    year: 2026,
+                    citations: 0,
+                    links: [{ label: "MDPI", url: "https://www.mdpi.com/2072-4292/18/4/572" }],
+                },
+                {
+                    title: "Towards annotation-less semantic segmentation of aerial point clouds",
+                    authors: "Ashkan Alami, Fabio Remondino",
+                    venue: "The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences",
+                    year: 2026,
+                    citations: 1,
+                    links: [{ label: "ISPRS Archives", url: "https://isprs-archives.copernicus.org/articles/XLVIII-4-W18-2025/19/2026/isprs-archives-XLVIII-4-W18-2025-19-2026.html" }],
+                },
+                {
+                    title: "2D and 3D Semantic Segmentation for Interpreting and Understanding 3D Heritage Spaces",
+                    authors: "Ahmad Elalailyi, Gabriele Mazzacca, Ashkan Alami, Nazanin Padkan, Narges Takhtkeshha, Francesco Fassi, Fabio Remondino",
+                    venue: "Digital Heritage",
+                    year: 2025,
+                    citations: 1,
+                    links: [{ label: "Link", url: "https://air.uniud.it/handle/11390/1315151" }],
+                },
+                {
+                    title: "Querying 3D point clouds exploiting open-vocabulary semantic segmentation of images",
+                    authors: "Ashkan Alami, Fabio Remondino",
+                    venue: "The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences",
+                    year: 2024,
+                    citations: 3,
+                    links: [{ label: "ISPRS Archives", url: "https://isprs-archives.copernicus.org/articles/XLVIII-2-W8-2024/1/2024/" }],
+                },
+            ],
         };
 
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // observer.unobserve(entry.target); // Optional: Stop observing once visible
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => {
-            observer.observe(section);
-            // Initialize sections visible on load
-            if (!section.classList.contains('visible') && section.getBoundingClientRect().top < window.innerHeight) {
-                 section.classList.add('visible');
-            }
-        });
+        renderPublications(PUBLICATIONS);
     </script>
-
 </body>
 </html>
-
